@@ -1,0 +1,178 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+.text-stroke-white {
+    -webkit-text-stroke: 16px #ffffff;
+    paint-order: stroke fill;
+}
+.text-stroke-white-md {
+    -webkit-text-stroke: 5px #ffffff;
+    paint-order: stroke fill;
+}
+
+@layer components {
+    .hero-stage {
+        --hero-scale: 0.42;
+        width: calc(820px * var(--hero-scale));
+        height: calc(300px * var(--hero-scale));
+    }
+
+    @media (min-width: 640px) {
+        .hero-stage {
+            --hero-scale: 0.6;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .hero-stage {
+            --hero-scale: 0.75;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-stage {
+            --hero-scale: 1;
+        }
+    }
+
+    .hero-title {
+        width: calc(820px * var(--hero-scale));
+        height: calc(300px * var(--hero-scale));
+    }
+
+    .hero-letter-lg {
+        font-size: calc(300px * var(--hero-scale));
+    }
+
+    .hero-letter-sm {
+        font-size: calc(128px * var(--hero-scale));
+    }
+
+    .hero-letter-p {
+        left: calc(0px * var(--hero-scale));
+        top: calc(0px * var(--hero-scale));
+    }
+
+    .hero-letter-o1 {
+        left: calc(130px * var(--hero-scale));
+        top: calc(120px * var(--hero-scale));
+    }
+
+    .hero-letter-r {
+        left: calc(200px * var(--hero-scale));
+        top: calc(140px * var(--hero-scale));
+    }
+
+    .hero-letter-t {
+        left: calc(230px * var(--hero-scale));
+        top: calc(-10px * var(--hero-scale));
+    }
+
+    .hero-letter-o2 {
+        left: calc(345px * var(--hero-scale));
+        top: calc(130px * var(--hero-scale));
+    }
+
+    .hero-letter-f {
+        left: calc(420px * var(--hero-scale));
+        top: calc(145px * var(--hero-scale));
+    }
+
+    .hero-letter-o3 {
+        left: calc(475px * var(--hero-scale));
+        top: calc(145px * var(--hero-scale));
+    }
+
+    .hero-letter-l {
+        left: calc(540px * var(--hero-scale));
+        top: calc(0px * var(--hero-scale));
+    }
+
+    .hero-letter-i {
+        left: calc(695px * var(--hero-scale));
+        top: calc(140px * var(--hero-scale));
+    }
+
+    .hero-letter-o4 {
+        left: calc(735px * var(--hero-scale));
+        top: calc(145px * var(--hero-scale));
+    }
+
+    .hero-icon {
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .hero-icon-bootstrap {
+        width: calc(96px * var(--hero-scale));
+        height: calc(96px * var(--hero-scale));
+        left: calc(-280px * var(--hero-scale));
+        top: calc(-50px * var(--hero-scale));
+    }
+
+    .hero-icon-css {
+        width: calc(160px * var(--hero-scale));
+        height: calc(160px * var(--hero-scale));
+        right: calc(-280px * var(--hero-scale));
+        top: calc(-70px * var(--hero-scale));
+    }
+
+    .hero-icon-ts {
+        width: calc(96px * var(--hero-scale));
+        height: calc(96px * var(--hero-scale));
+        left: calc(-270px * var(--hero-scale));
+        top: calc(420px * var(--hero-scale));
+    }
+
+    .hero-icon-palette {
+        width: calc(200px * var(--hero-scale));
+        height: auto;
+        right: calc(-220px * var(--hero-scale));
+        top: calc(200px * var(--hero-scale));
+    }
+}
+
+@media (max-width: 640px) {
+    .text-stroke-white {
+        -webkit-text-stroke: 8px #ffffff;
+    }
+
+    .text-stroke-white-md {
+        -webkit-text-stroke: 3px #ffffff;
+    }
+}
+
+.bg-grid-fade {
+    background-image:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0) 100%
+        ),
+        linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+
+    background-size:
+        100% 100%,
+        32px 32px,
+        32px 32px;
+
+    background-repeat: repeat;
+}
+
+.bg-grid {
+    background-color: white;
+    background-image: linear-gradient(to right, #d1d5db 1px, transparent 1px),
+        linear-gradient(to bottom, #d1d5db 1px, transparent 1px);
+    background-size: 32px 32px; /* ukuran kotak */
+}
