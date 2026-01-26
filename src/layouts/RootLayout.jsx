@@ -52,7 +52,7 @@ export default function RootLayout() {
             </header>
 
             <div
-                className="fixed left-56 right-56 h-32 z-40 rounded-full"
+                className="fixed left-56 right-56 h-28 z-40 rounded-full"
                 onMouseEnter={() => {
                     isHovering.current = true;
                     document.querySelector("header").style.transform =
@@ -63,7 +63,7 @@ export default function RootLayout() {
                 }}
             />
 
-            <main>
+            <main className="relative flex min-h-[100svh] m-0 p-0 items-center justify-center flex-col overflow-hidden bg-canvas">
                 <Outlet />
             </main>
         </div>

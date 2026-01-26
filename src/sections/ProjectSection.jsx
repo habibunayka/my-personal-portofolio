@@ -1,3 +1,4 @@
+import ProjectBackground from "../components/ProjectBackground";
 import ProjectCard from "../components/ProjectCard";
 
 export default function ProjectsSection() {
@@ -42,6 +43,7 @@ export default function ProjectsSection() {
 
     return (
         <section className="relative py-24 bg-white overflow-hidden">
+            <ProjectBackground />
             <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
 
             <div className="relative z-10 px-6 md:px-16">
