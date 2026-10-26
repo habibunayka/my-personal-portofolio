@@ -1,4 +1,5 @@
 export default function ToolsCard({
+    delay = 0,
     title,
     desc,
     tags,
@@ -9,9 +10,13 @@ export default function ToolsCard({
 }) {
     return (
         <div
+            data-reveal="up"
+            style={{ "--reveal-delay": `${delay}ms` }}
+            onTouchStart={onHover}
+            onTouchEnd={onLeave}
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
-            className={`group relative overflow-hidden rounded-xl border-2 p-5 py-8 sm:p-6 sm:py-12 cursor-default
+            className={`tools-card ${active ? "is-active" : ""} group relative overflow-hidden rounded-xl border-2 p-5 py-8 sm:p-6 sm:py-12 cursor-default
                         border-primary transition-all duration-700 bg-white drop-shadow-[0_4px_4px_rgba(255,161,19,0.63)]
                         ${
                             active
@@ -54,8 +59,8 @@ export default function ToolsCard({
                             className={`rounded-full px-3 py-1 text-xs font-fredoka transition-all sm:text-sm
                             ${
                                 active
-                                    ? "border border-white text-white"
-                                    : "border border-primary text-primary"
+                                    ? "tool-tag border border-white text-white"
+                                    : "tool-tag border border-primary text-primary"
                             }`}
                         >
                             {tag}

@@ -1,6 +1,6 @@
 export default function CloudSection() {
     return (
-        <section className="relative inline-block w-full h-48 inset-0">
+        <div aria-hidden="true" className="cloud-divider relative w-full">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1440 748"
@@ -23,15 +23,15 @@ export default function CloudSection() {
                         x2="720"
                         y2="1042.5"
                     >
-                        <stop offset="0.307692" stop-color="white" />
+                        <stop offset="0.307692" stopColor="white" />
                         <stop
                             offset="1"
-                            stop-color="#FFF9F9"
-                            stop-opacity="0.14"
+                            stopColor="#FFF9F9"
+                            stopOpacity="0.14"
                         />
                     </linearGradient>
                 </defs>
             </svg>
-        </section>
+        </div>
     );
 }

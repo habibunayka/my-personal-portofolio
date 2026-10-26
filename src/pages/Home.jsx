@@ -1,4 +1,6 @@
-﻿import DiagonalScrollBannerL from "../components/DiagonalScrollBannerL";
+import { useRef } from "react";
+import useReveal from "../hooks/useReveal";
+import DiagonalScrollBannerL from "../components/DiagonalScrollBannerL";
 import DiagonalScrollBannerR from "../components/DiagonalScrollBannerR";
 import AboutSection from "../sections/AboutSection";
 import AchievementSection from "../sections/AchievementSection";
@@ -10,8 +12,10 @@ import ProjectsSection from "../sections/ProjectSection";
 import ToolsSection from "../sections/ToolsSection";
 
 export default function Home() {
+    const pageRef = useRef(null);
+    useReveal(pageRef);
     return (
-        <>
+        <div ref={pageRef} className="home-page relative w-full">
             <span className="absolute -left-[clamp(100px,18vw,160px)] top-[30vh] -translate-y-1/2 w-[clamp(240px,60vw,627px)] h-[clamp(320px,70vw,790px)] rounded-full bg-primary/25 blur-[clamp(90px,18vw,200px)] pointer-events-none" />
             <span className="absolute -left-[clamp(130px,22vw,190px)] top-[32vh] -translate-y-1/2 w-[clamp(240px,60vw,627px)] h-[clamp(320px,70vw,790px)] rounded-full bg-primary/25 blur-[clamp(90px,18vw,200px)] pointer-events-none" />
             <span className="absolute -right-[clamp(60px,12vw,140px)] top-[36vh] -translate-y-1/2 w-[clamp(240px,60vw,627px)] h-[clamp(320px,70vw,790px)] rounded-full bg-primary/25 blur-[clamp(90px,18vw,200px)] pointer-events-none" />
@@ -25,10 +29,11 @@ export default function Home() {
                 <ToolsSection />
                 <DiagonalScrollBannerR />
                 <ProjectsSection />
-                {/* <AchievementSection /> */}
+                <AchievementSection />
                 <ExperienceSection />
                 <ContactSection />
             </div>
-        </>
+            <footer className="site-footer" data-reveal="fade"><a href="#home" className="font-baloo font-bold">Habib Shiina <span aria-hidden="true">↑</span></a><a href="mailto:habibunayka@gmail.com">habibunayka@gmail.com</a></footer>
+        </div>
     );
 }

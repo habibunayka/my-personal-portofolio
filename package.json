@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@emailjs/browser": "^5.0.3",
     "@fontsource/baloo-2": "^5.2.7",
     "animejs": "^4.2.2",
     "codex": "^0.2.3",

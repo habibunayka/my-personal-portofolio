@@ -1,9 +1,11 @@
+import CursorTooltip from "../components/CursorTooltip";
+
 export default function AboutSection() {
     return (
-        <section className="relative flex min-h-screen items-center justify-center overflow-hidden w-full">
-            <div className="relative mx-auto flex max-w-7xl flex-col-reverse gap-28 px-6 py-24 xl:flex-row">
-                <div className="relative flex-1 rounded-2xl md:rounded-3xl border-2 border-orange-400 bg-white p-5 sm:p-6 md:p-8 md:mx-20 xl:mx-0 shadow-lg">
-                    <div className="mb-4 md:mb-6 grid w-full grid-cols-12 overflow-hidden">
+        <section id="about" aria-labelledby="about-heading" className="relative flex min-h-screen items-center justify-center overflow-hidden w-full">
+            <div className="about-layout section-shell section-space relative flex flex-col-reverse xl:flex-row">
+                <div data-reveal="up" style={{ "--reveal-delay": "80ms" }} className="about-copy relative flex-1 rounded-2xl md:rounded-3xl border-2 border-orange-400 bg-white p-5 sm:p-6 md:p-8 md:mx-20 xl:mx-0 shadow-lg">
+                    <div className="notebook-holes mb-4 md:mb-6 grid w-full grid-cols-12 overflow-hidden">
                         {Array.from({ length: 12 }).map((_, i) => (
                             <div key={i} className="flex justify-center">
                                 <span className="h-5 w-5 sm:h-6 sm:w-6 rounded-full border-2 border-orange-400" />
@@ -11,8 +13,8 @@ export default function AboutSection() {
                         ))}
                     </div>
 
-                    <h1
-                        className="mt-12 font-baloo font-extrabold leading-tight text-orange-500
+                    <h2 id="about-heading"
+                        className="about-heading mt-8 font-baloo font-extrabold leading-tight text-orange-500
         text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
                     >
                         Hi, I’m Habib —
@@ -20,7 +22,7 @@ export default function AboutSection() {
                         <span className="block sm:inline">
                             A Fullstack Developer.
                         </span>
-                    </h1>
+                    </h2>
 
                     <p
                         className="mt-4 sm:mt-5 md:mt-6 font-fredoka leading-relaxed text-orange-500
@@ -48,17 +50,18 @@ export default function AboutSection() {
                     </p>
                 </div>
 
-                <div className="relative flex justify-center xl:justify-end ">
-                    <div className="relative">
+                <div data-reveal="up" className="about-portrait relative flex justify-center xl:justify-end">
+                    <CursorTooltip className="about-photo relative cursor-default" label="About Habib" popupClassName="about-photo-tooltip"
+                        content={<><strong>Hi, I’m Habib</strong><span>A Fullstack Developer. Focused On Building End-To-End Web Solutions With Strong Architecture, Clean Code, And Scalable Systems.</span></>}>
                         <img
                             src="/assets/habib.png"
-                            alt="Habib"
-                            className="h-[495px] w-[378px] object-cover grayscale contrast-125 filter drop-shadow-[22px_-25px_0_#FFA113]"
+                            alt="Habib" width="378" height="495" loading="lazy" decoding="async"
+                            className="h-[495px] w-[378px] object-cover grayscale contrast-125 filter drop-shadow-[22px_-25px_0_#FFA113] cursor-default"
                         />
-                        <div className="absolute inset-0 bg-orange-400 opacity-80 mix-blend-multiply" />
-                    </div>
+                        <div className="about-photo-tint pointer-events-none absolute inset-0 bg-orange-400 opacity-80 mix-blend-multiply" />
+                    </CursorTooltip>
 
-                    <div className="absolute top-80 -right-28 w-[574px]">
+                    <div data-reveal="upper-right" className="about-ribbon absolute top-80 -right-28 w-[574px]">
                         <svg viewBox="0 0 574 252" className="w-full">
                             <path
                                 d="M531.689 3.12695L5.28027 156.691L119.245 249.127L570.28 156.691L531.689 3.12695Z"

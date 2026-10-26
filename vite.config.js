@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     allowedHosts: [
-      'maci-unstrange-nonexponentially.ngrok-free.dev'
+      'maci-unstrange-nonexponentially.ngrok-free.dev',
+      'terminal.local'
     ]
   }
 })

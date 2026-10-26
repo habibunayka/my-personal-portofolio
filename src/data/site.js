@@ -1,14 +1,14 @@
 ﻿export const site = {
-  name: 'Your Name',
+  name: 'Habibunayka Miftah Al-Rizqi',
   mark: 'YN',
-  role: 'Frontend Developer',
-  location: 'Colombo, Sri Lanka',
-  email: 'hello@yourdomain.com',
+  role: 'Backend Developer',
+  location: 'Bogor, Jawa barat, Indonesia',
+  email: 'habibunayka@gmail.com',
   tagline: 'I design and build warm, conversion-ready experiences for modern brands and products.',
   shortBio: 'Focused on blending clean UI systems with crisp storytelling and motion.',
   availability: 'Available for select freelance projects in 2025',
   about:
-    'I am a frontend developer who loves shaping product experiences from early concept to polished launch. I collaborate with founders and teams to build design systems, marketing sites, and product interfaces that feel confident and human.',
+    'I am a backend developer who loves shaping product experiences from early concept to polished launch. I collaborate with founders and teams to build design systems, marketing sites, and product interfaces that feel confident and human.',
 }
 
 export const navigation = [

@@ -1,8 +1,8 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-[50vh] flex-col items-start justify-center gap-6">
+    <div className="section-shell py-40 flex min-h-[100svh] flex-col items-start justify-center gap-6">
       <p className="text-xs uppercase tracking-[0.4em] text-muted">404</p>
       <h1 className="font-serif text-4xl text-ink sm:text-5xl">Page not found.</h1>
       <p className="max-w-xl text-lg text-muted">

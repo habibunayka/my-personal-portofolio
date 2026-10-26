@@ -1,105 +1,99 @@
-function SocialIcon({ href, children }) {
-    return (
-        <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 backdrop-blur-md shadow-md transition hover:scale-110"
-        >
-            {children}
-        </a>
-    );
+import { useEffect, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { Check, LoaderCircle, X } from 'lucide-react';
+import SocialGraphic from '../components/SocialIcon';
+
+const EMAILJS_SERVICE_ID = 'service_5h5b8qg';
+const EMAILJS_TEMPLATE_ID = 'template_a05wjun';
+const EMAILJS_PUBLIC_KEY = 'D3ovWYL2zw3ARlBrN';
+
+function SocialIcon({ href, name, onUnavailable }) {
+  const className = 'social-control flex items-center justify-center rounded-2xl bg-white/70 backdrop-blur-md shadow-md hover:-translate-y-1';
+  if (!href || href === '#') return <button type="button" data-unavailable="true" aria-label={`${name} — link not available yet`} onClick={() => onUnavailable(`${name} link is not available yet. You can contact me by email.`)} className={className}><SocialGraphic name={name} /></button>;
+  return <a href={href} target="_blank" rel="noopener noreferrer" aria-label={name} className={className}><SocialGraphic name={name} /></a>;
 }
 
 export default function ContactSection() {
-    return (
-        <section className="relative min-h-[100vh] bg-white flex items-center justify-center">
-            <div className="absolute inset-0 bg-grid opacity-40" />
-            <img src="/assets/background-contact.svg" alt="background" className="absolute inset-0 w-full h-fit object-cover" />
-            <div className="relative z-10 flex w-full items-center justify-center px-6 md:px-16">
-                <div className="w-full max-w-6xl rounded-[40px] bg-[#FFA11350]  p-2 shadow-xl">
-                    <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 rounded-[36px] backdrop-blur-xl p-10 md:p-14">
-                        {/* LEFT */}
-                        <div className="flex flex-col justify-between">
-                            <div>
-                                <h1 className="text-[40px] md:text-[64px] font-extrabold font-baloo leading-none text-stroke-white mb-8 text-primary drop-shadow-[0_4px_4px_rgba(255,161,19,0.63)]">
-                                    My Social Media
-                                </h1>
-
-                                <p className="mt-2 text-[16px] md:text-[20px] mb-6 font-semibold font-baloo text-primary text-stroke-white-md drop-shadow-[0_4px_4px_rgba(255,161,19,0.63)]">
-                                    I’m open to being contacted and will use the
-                                    information you provide to connect with you
-                                    and discuss ideas, projects, or
-                                    collaboration opportunities.
-                                </p>
-
-                                <p className="mt-2 text-[16px] md:text-[20px] font-semibold font-baloo text-primary text-stroke-white-md drop-shadow-[0_4px_4px_rgba(255,161,19,0.63)]">
-                                    gmail: habibunayka@gmail.com
-                                </p>
-                            </div>
-
-                            <div className="mt-6 flex gap-4">
-                                <SocialIcon href="#">
-                                    <img
-                                        src="/icons/whatsapp.svg"
-                                        alt="whatsapp"
-                                        className="h-7 w-7"
-                                    />
-                                </SocialIcon>
-                                <SocialIcon href="#">
-                                    <img
-                                        src="/icons/linkedin.svg"
-                                        alt="linkedin"
-                                        className="h-7 w-7"
-                                    />
-                                </SocialIcon>
-                                <SocialIcon href="#">
-                                    <img
-                                        src="/icons/instagram.svg"
-                                        alt="instagram"
-                                        className="h-7 w-7"
-                                    />
-                                </SocialIcon>
-                                <SocialIcon href="#">
-                                    <img
-                                        src="/icons/facebook.svg"
-                                        alt="facebook"
-                                        className="h-7 w-7"
-                                    />
-                                </SocialIcon>
-                            </div>
-                        </div>
-
-                        {/* RIGHT */}
-                        <div className="rounded-3xl bg-white/15 backdrop-blur-lg p-8 shadow-lg">
-                            <form className="flex flex-col gap-4">
-                                <input
-                                    type="text"
-                                    placeholder="Name"
-                                    className="w-full rounded-xl border-2 border-white/60 bg-white/15 px-4 py-3 font-kumbh text-sm font-semibold text-white placeholder-white outline-none focus:ring-2 focus:ring-amber-400"
-                                />
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="w-full rounded-xl border-2 border-white/60 bg-white/15 px-4 py-3 font-kumbh font-semibold text-sm text-white placeholder-white outline-none focus:ring-2 focus:ring-amber-400"
-                                />
-                                <textarea
-                                    rows="4"
-                                    placeholder="Message"
-                                    className="w-full resize-none rounded-xl border-2 border-white/60 bg-white/15 px-4 py-3 font-kumbh text-sm placeholder-white text-white outline-none focus:ring-2 focus:ring-amber-400"
-                                />
-
-                                <button
-                                    type="submit"
-                                    className="mt-2 rounded-full bg-primary py-3 font-kumbh font-semibold text-white transition duration-300 hover:drop-shadow-[0_4px_4px_rgba(255,161,19,0.63)]"
-                                >
-                                    Submit
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+  const [notice, setNotice] = useState('');
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+  const [isSending, setIsSending] = useState(false);
+  useEffect(() => {
+    if (!formStatus.type || formStatus.type === 'sending') return undefined;
+    const timeout = window.setTimeout(() => setFormStatus({ type: '', message: '' }), 5000);
+    return () => window.clearTimeout(timeout);
+  }, [formStatus]);
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    if (!name || !email || !message) {
+      setFormStatus({ type: 'error', message: 'Please complete all fields.' });
+      return;
+    }
+    setIsSending(true);
+    setFormStatus({ type: 'sending', message: 'Sending your message...' });
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { name, email, message }, EMAILJS_PUBLIC_KEY);
+      form.reset();
+      setFormStatus({ type: 'success', message: 'Message sent successfully. Thank you for reaching out!' });
+    } catch (error) {
+      console.error('EmailJS contact form submission failed:', error);
+      setFormStatus({ type: 'error', message: 'We could not send your message. Please try again or email habibunayka@gmail.com directly.' });
+    } finally {
+      setIsSending(false);
+    }
+  }
+  return (
+    <section id="contacts" aria-labelledby="contact-heading" className="contact-section section-space relative bg-white flex items-center justify-center">
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
+      <div className="contact-backdrop" aria-hidden="true">
+        <img src="/assets/background-contact.svg" alt="" loading="lazy" decoding="async" className="contact-backdrop-art" />
+      </div>
+      <div className="section-shell relative z-10">
+        <div className="w-full max-w-6xl mx-auto rounded-[40px] bg-[#FFA11350] p-2 shadow-xl">
+          <div className="contact-inner relative grid grid-cols-1 lg:grid-cols-2 rounded-[36px] backdrop-blur-xl">
+            <div className="flex flex-col justify-between">
+              <div>
+                <h2 id="contact-heading" data-reveal="up" className="section-title font-extrabold font-baloo leading-none text-stroke-white mb-8 text-primary drop-shadow-[0_4px_4px_rgba(255,161,19,0.63)]" style={{ fontSize: 'clamp(2.5rem, 4.5vw, 4rem)' }}>My Social Media</h2>
+                <p data-reveal="up" style={{ '--reveal-delay': '80ms' }} className="contact-description mt-2 text-base md:text-xl mb-6 font-semibold font-baloo">I’m open to being contacted and will use the information you provide to connect with you and discuss ideas, projects, or collaboration opportunities.</p>
+                <p data-reveal="up" style={{ '--reveal-delay': '160ms' }} className="contact-description contact-email font-semibold font-baloo text-base md:text-xl">Email: <a className="underline underline-offset-4" href="mailto:habibunayka@gmail.com">habibunayka@gmail.com</a></p>
+              </div>
+              <div data-reveal="up" className="contact-socials mt-6 flex">
+                {[
+                  { name: 'github', href: 'https://github.com/habibunayka' },
+                  { name: 'linkedin', href: 'https://www.linkedin.com/in/habibunayka' },
+                  { name: 'instagram', href: 'https://www.instagram.com/habib.yet' },
+                  { name: 'facebook', href: 'https://www.facebook.com/mahiruxchan' },
+                ].map(({ name, href }) => <SocialIcon key={name} href={href} name={name} onUnavailable={setNotice} />)}
+              </div>
+              <p aria-live="polite" className="contact-note mt-3">{notice}</p>
             </div>
-        </section>
-    );
+            <div data-reveal="up" style={{ '--reveal-delay': '80ms' }} className="contact-form-panel rounded-3xl bg-white/15 backdrop-blur-lg shadow-lg">
+              <form onSubmit={handleSubmit} className="contact-form flex flex-col gap-4" aria-label="Contact Habib" aria-describedby="contact-help">
+                <label data-reveal="up" style={{ '--reveal-delay': '80ms' }}>Name<input type="text" name="name" autoComplete="name" required maxLength={100} placeholder="Name" /></label>
+                <label data-reveal="up" style={{ '--reveal-delay': '160ms' }}>Email<input type="email" name="email" autoComplete="email" required maxLength={254} placeholder="Email" /></label>
+                <label data-reveal="up" style={{ '--reveal-delay': '240ms' }}>Message<textarea name="message" rows="4" required maxLength={2000} placeholder="Message" /></label>
+                <button data-reveal="up" type="submit" disabled={isSending} className="mt-2 rounded-full bg-primary py-3 font-kumbh font-semibold text-amber-950 shadow-sm hover:shadow-lg disabled:cursor-wait disabled:opacity-60">
+                  {isSending ? 'Sending...' : 'Send message'}
+                </button>
+                <p id="contact-help" className="contact-note">Your message will be sent securely through the portfolio contact form.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {formStatus.message && <div aria-live="polite" className={`contact-status-popup ${formStatus.type}`} role="status">
+        <span className="contact-status-icon" aria-hidden="true">
+          {formStatus.type === 'sending' && <LoaderCircle className="contact-status-spinner" size={20} />}
+          {formStatus.type === 'success' && <Check size={20} strokeWidth={3} />}
+          {formStatus.type === 'error' && <strong>!</strong>}
+        </span>
+        <span>{formStatus.message}</span>
+        {formStatus.type !== 'sending' && <button type="button" aria-label="Close notification" onClick={() => setFormStatus({ type: '', message: '' })}><X size={18} /></button>}
+      </div>}
+    </section>
+  );
 }
