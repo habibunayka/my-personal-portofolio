@@ -120,9 +120,9 @@ button:not(:disabled):active { transform: translateY(1px); }
 .hero-profile p:first-child { font-size: 21px; }
 .hero-profile p + p { font-size: 14px; }
 .hero-profile { cursor: default; }
-.hero-profile-card { will-change: translate, box-shadow; animation: hero-profile-float 6.4s ease-in-out 1.4s infinite; transition: box-shadow 450ms var(--motion-ease), border-color 450ms ease; }
-.hero-profile:hover .hero-profile-card,
-.hero-profile:focus-visible .hero-profile-card { box-shadow: 0 14px 30px rgba(154, 79, 0, .2); border-color: #e58b00; }
+.hero-profile-card { box-shadow: 0 0 0 transparent; will-change: translate, box-shadow; animation: hero-profile-float 6.4s ease-in-out 1.4s infinite; transition: box-shadow 450ms var(--motion-ease), border-color 450ms ease; }
+.hero-profile[data-card-phase="open"]:hover .hero-profile-card,
+.hero-profile[data-card-phase="open"]:focus-visible .hero-profile-card { box-shadow: 0 14px 30px rgba(154, 79, 0, .2); border-color: #e58b00; }
 .hero-tagline { position: relative; isolation: isolate; transition: color 350ms ease, text-shadow 350ms ease; }
 .hero-tagline::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, .8) 45%, transparent 70%); background-size: 220% 100%; opacity: 0; transform: translateX(-35%); transition: opacity 350ms ease; pointer-events: none; }
 .hero-annotation-profile { width: min(220px, var(--tooltip-max-width)); }
@@ -288,6 +288,12 @@ button:not(:disabled):active { transform: translateY(1px); }
  from { opacity: 0; }
  to { opacity: 1; }
 }
+@keyframes hero-decoration-pop {
+ 0% { opacity: 0; scale: .72; }
+ 58% { opacity: 1; scale: 1.06; }
+ 78% { scale: .985; }
+ 100% { opacity: 1; scale: 1; }
+}
 @keyframes hero-float-a {
   0%, 100% { translate: 0 0; rotate: 0deg; }
   35% { translate: 4px -8px; rotate: 1.5deg; }
@@ -318,8 +324,11 @@ button:not(:disabled):active { transform: translateY(1px); }
   to { transform: translateX(35%); }
 }
 .hero-composition { animation: hero-scene-enter 900ms var(--motion-ease) 80ms both; }
-.hero-decoration { animation: hero-scene-enter 900ms var(--motion-ease) 420ms both; }
-.hero-decoration.palette { animation-delay: 560ms; }
+.hero-decoration { animation: hero-decoration-pop 820ms var(--motion-ease) 420ms both; }
+.hero-decoration.bootstrap { animation-delay: 420ms; }
+.hero-decoration.css-icon { animation-delay: 560ms; }
+.hero-decoration.typescript { animation-delay: 700ms; }
+.hero-decoration.palette { animation-delay: 840ms; }
 .hero-profile { animation: hero-scene-enter 800ms var(--motion-ease) 700ms both; }
 .hero-name { animation: hero-scene-enter 800ms var(--motion-ease) 860ms both; }
 .social-control:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 20px rgba(154, 79, 0, .16); }
@@ -404,6 +413,9 @@ button:not(:disabled):active { transform: translateY(1px); }
  transform: scale(var(--hero-closed-x), var(--hero-closed-y));
  will-change: transform;
 }
+.hero-profile[data-card-phase="open"] .hero-profile-card { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1); }
+.hero-profile[data-card-phase="open"]:hover .hero-profile-card,
+.hero-profile[data-card-phase="open"]:focus-visible .hero-profile-card { box-shadow: 0 14px 30px rgba(154, 79, 0, .2); }
 .hero-profile[data-card-phase]:not([data-card-phase="open"]) > .hero-profile-glow { visibility: hidden; }
 .hero-profile-content { visibility: hidden; opacity: 0; }
 .hero-profile[data-card-phase="revealing"] .hero-profile-content { visibility: visible; }

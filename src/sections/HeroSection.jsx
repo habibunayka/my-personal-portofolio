@@ -57,9 +57,9 @@ function PaletteAnnotation() {
     return <CursorTooltip className="hero-decoration palette relative cursor-default" label="Palette accent" interactive
         popupClassName="hero-annotation-palette"
         content={<>
-            <strong>Palette accent</strong>
-            <span>A warm orange accent that carries the portfolio’s friendly energy.</span>
-            <div className="hero-color-value"><i aria-hidden="true" />#FFA113 <small>RGB 255, 161, 19</small></div>
+            <strong>Mahiru's Warmth</strong>
+            <span>A warm orange accent inspired by Mahiru's gentle, angelic charm.</span>
+            <div className="hero-color-value my-1"><i aria-hidden="true" />#FFA113 <small>RGB 255, 161, 19</small></div>
             <button type="button" onClick={copyColor}>Copy HEX</button>
             <span role="status">{status}</span>
         </>}>
@@ -114,9 +114,9 @@ export default function HeroSection() {
 
                 <CursorTooltip data-card-phase="closed" inert className="hero-profile absolute left-[-290px] bottom-[-10px] rotate-[-3.63deg] z-10"
                     label="Fullstack developer, Web developer with an Angelic touch" popupClassName="hero-annotation-profile"
-                    content={<><strong>Angelic touch</strong><span>Technical precision softened by thoughtful, human-centered details.</span></>}>
+                    content={<><strong>Shiina Mahiru</strong><span>Inspired by Mahiru's gentle warmth, bringing a thoughtful touch to every line of code and every user experience.</span></>}>
                     <div className="hero-profile-glow absolute inset-0 rounded-xl bg-primary blur-[14px] opacity-60" />
-                    <div ref={cardRef} className="hero-profile-card relative flex gap-4 items-center rounded-xl bg-white px-5 py-6 border-2 border-primary shadow-lg">
+                    <div ref={cardRef} className="hero-profile-card relative flex gap-4 items-center rounded-xl bg-white px-5 py-6 border-2 border-primary">
                         <div className="hero-profile-content w-24 h-24 rounded-lg overflow-hidden bg-gray-200 shrink-0">
                             <img
                                 src="/assets/mahiru.svg"
